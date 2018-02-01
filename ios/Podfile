@@ -1,0 +1,24 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'testAssignment' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+#   pod 'GooglePlacePicker', '= 2.0.1'
+#   pod 'GooglePlaces', '= 2.0.1'
+#   pod 'GoogleMaps', '= 2.0.1'
+
+# end
+
+rn_path = '../node_modules/react-native'
+  rn_maps_path = '../node_modules/react-native-maps'
+
+  pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
+
+  pod 'GooglePlacePicker', '= 2.0.1'
+  pod 'GooglePlaces', '= 2.0.1'
+  pod 'GoogleMaps', '= 2.0.1'
+
+
+end
