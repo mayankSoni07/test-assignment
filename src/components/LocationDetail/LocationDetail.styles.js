@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: colorCode,
         padding: 10,
-        paddingHorizontal: 20,
     },
     backButton: {
         fontSize: 16,
