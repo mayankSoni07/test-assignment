@@ -38,7 +38,9 @@ export default class ListViewClass extends Component {
                 <Text style={styles.milesText}>{dist > 999 ? parseInt(dist / 1000) : dist}{dist > 999 ? "k miles" : " miles"} </Text>
                 <View style={styles.adressView}>
                     <Text style={styles.addressText}>{value.address}</Text>
-                    <Image style={styles.arrowImg} source={require('../../assests/arrow.png')} />
+                    <TouchableOpacity onPress={() => self.props.navigation.navigate('locationDetail', { markerDetail: value })} >
+                        <Image style={styles.arrowImg} source={require('../../assests/arrow.png')} />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.tagOuter}>
                     {value.store_tags && value.store_tags.map((tag, index) => {

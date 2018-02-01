@@ -12,7 +12,7 @@ export default class Header extends Component {
         return (
             <View style={styles.searchView}>
                 <View style={styles.imgView}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('search', { locations: this.props.locations })} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('search', { locations: this.props.locations, navigation: this.props.navigation })} >
                         <Image style={styles.imageSearch} source={require('../../assests/find.png')} />
                     </TouchableOpacity>
                 </View>

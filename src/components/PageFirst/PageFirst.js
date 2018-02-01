@@ -47,7 +47,7 @@ class PageFirst extends Component {
                 <View style={styles.scrollItem}>
                     <View style={styles.nameArrowView}>
                         <Text style={styles.nameText}>{marker.name}</Text>
-                        <TouchableOpacity onPress={() => self.props.navigation.navigate('locationDetail')} >
+                        <TouchableOpacity onPress={() => self.props.navigation.navigate('locationDetail', { markerDetail: marker })} >
                             <Image style={styles.upImg} source={require('../../assests/up.png')} />
                         </TouchableOpacity>
                     </View>
@@ -88,9 +88,9 @@ class PageFirst extends Component {
         return (
             <View style={styles.container}>
                 {this.props.isListView ?
-                    <ListView markerClicked={this.markerClicked} locations={this.props.locations} />
+                    <ListView navigation={this.props.navigation} markerClicked={this.markerClicked} locations={this.props.locations} />
                     :
-                    <MapView markerClicked={this.markerClicked} locations={this.props.locations} />
+                    <MapView navigation={this.props.navigation} markerClicked={this.markerClicked} locations={this.props.locations} />
                 }
                 <Header navigation={this.props.navigation} locations={this.props.locations} changeView={this.props.changeView} isListView={this.props.isListView} />
                 {Object.keys(this.state.markerDetail).length > 0 && this.renderMarkerDetail()}
