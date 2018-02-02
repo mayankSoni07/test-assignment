@@ -13,12 +13,12 @@ const styles = StyleSheet.create({
   },
   searchView: {
     marginTop: 10,
-    width: width-20,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   searchBox: {
+    flex: 0.8,
     elevation: 1,
     borderRadius: 10,
     borderWidth: 1,
@@ -26,18 +26,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 5
   },
   searchImg: {
     height: 25,
     width: 25
   },
   searchTextinput: {
-    width: 240,
+    flex: 1,
     marginHorizontal: 10
   },
   closeImg:{
     height: 25,
     width: 25
+  },
+  cancelView:{
+    flex: 0.2,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   cancelText: {
     fontSize: 17,

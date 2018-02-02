@@ -105,9 +105,11 @@ export default class Search extends Component {
                             <Image style={styles.closeImg} source={require('../../assests/close.png')} />
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this.props.navigation.dispatch(NavigationActions.back())}>
-                        <Text style={styles.cancelText}>Cancel</Text>
-                    </TouchableOpacity>
+                    <View style={styles.cancelView} >
+                        <TouchableOpacity onPress={() => this.props.navigation.dispatch(NavigationActions.back())}>
+                            <Text style={styles.cancelText}>Cancel</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={styles.lineView} />
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
