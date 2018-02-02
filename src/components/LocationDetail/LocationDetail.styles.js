@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         color: colorCode
     },
+    nameView:{
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
     nameText: {
         fontSize: 20,
         fontWeight: "500",
@@ -99,6 +103,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "500",
         color: colorCode,
+    },
+    img: {
+        height: 25,
+        width: 25
     }
 });
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 import styles from './ListView.styles';
-import { distance } from '../../Utils';
+import { distance, favourite } from '../../Utils';
 
 let self;
 
@@ -34,11 +34,27 @@ export default class ListViewClass extends Component {
         let dist = parseInt(distance(value.latitude, value.longitude, self.state.current.latitude, self.state.current.longitude, "N"));
         return (
             <View key={index} style={styles.scrollItem}>
-                <Text style={styles.nameText}>{value.name}</Text>
+
+                <View style={styles.nameView}>
+                    <Text style={styles.nameText}>{value.name}</Text>
+                    <TouchableOpacity onPress={() => {
+                        favourite(self.props.locations, value, self.props.dataToProps, false, self.props.markerClicked)
+                    }}>
+                        {value.isFav ?
+                            <Image style={styles.favImg} source={require('../../assests/favYes.png')} />
+                            :
+                            <Image style={styles.favImg} source={require('../../assests/favNo.png')} />
+                        }
+                    </TouchableOpacity>
+                </View>
+
                 <Text style={styles.milesText}>{dist > 999 ? parseInt(dist / 1000) : dist}{dist > 999 ? "k miles" : " miles"} </Text>
                 <View style={styles.adressView}>
                     <Text style={styles.addressText}>{value.address}</Text>
-                    <TouchableOpacity onPress={() => self.props.navigation.navigate('locationDetail', { markerDetail: value })} >
+                    <TouchableOpacity onPress={() => self.props.navigation.navigate('locationDetail', {
+                        dataToProps: self.props.dataToProps, markerDetail: value, markerClicked: self.props.markerClicked,
+                        locations: self.props.locations
+                    })} >
                         <Image style={styles.arrowImg} source={require('../../assests/arrow.png')} />
                     </TouchableOpacity>
                 </View>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 import { Text, View, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 
 import styles from './Search.styles';
-import { distance } from '../../Utils';
+import { distance, favourite } from '../../Utils';
 
 let self;
 
@@ -11,7 +12,7 @@ let self;
  * @class
  * represents the Search component
  */
-export default class Search extends Component {
+class Search extends Component {
 
     constructor(props) {
         super(props);
@@ -29,10 +30,15 @@ export default class Search extends Component {
          */
         navigator.geolocation.getCurrentPosition((position) => {
             this.setState({ current: position.coords, locations: this.props.locations });
-            console.log("Position : ", position);
         }, (error) => {
             console.log(JSON.stringify(error));
         });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.locations) {
+            this.setState({ locations: nextProps.locations });
+        }
     }
 
     /**
@@ -45,13 +51,29 @@ export default class Search extends Component {
         let dist = parseInt(distance(value.latitude, value.longitude, self.state.current.latitude, self.state.current.longitude, "N"));
         return (
             <View key={index} style={styles.scrollItem}>
-                <Text style={styles.nameText}>{value.name}</Text>
+                <View style={styles.nameView}>
+                    <Text style={styles.nameText}>{value.name}</Text>
+                    <TouchableOpacity onPress={() => {
+                        favourite(self.props.locations, value, self.props.dataToProps, false, self.props.markerClicked)
+                    }}>
+                        {value.isFav ?
+                            <Image style={styles.favImg} source={require('../../assests/favYes.png')} />
+                            :
+                            <Image style={styles.favImg} source={require('../../assests/favNo.png')} />
+                        }
+                    </TouchableOpacity>
+                </View>
                 <Text style={styles.milesText}>{dist > 999 ? parseInt(dist / 1000) : dist}{dist > 999 ? "k miles" : " miles"} </Text>
                 <View style={styles.adressView}>
                     <Text style={styles.addressText}>{value.address}</Text>
-                    <TouchableOpacity onPress={() => self.props.navigation.navigate('locationDetail', { markerDetail: value })} >
+
+                    <TouchableOpacity onPress={() => self.props.navigation.navigate('locationDetail', {
+                        dataToProps: self.props.dataToProps, markerDetail: value, markerClicked: self.props.markerClicked,
+                        locations: self.props.locations
+                    })} >
                         <Image style={styles.arrowImg} source={require('../../assests/arrow.png')} />
                     </TouchableOpacity>
+
                 </View>
                 <View style={styles.tagOuter}>
                     {value.store_tags && value.store_tags.map((tag, index) => {
@@ -71,7 +93,6 @@ export default class Search extends Component {
      * @param {TextInput text string} text 
      */
     searchStart(text) {
-        console.log(text);
         let val = text.trim();
         let searchedValue = [];
 
@@ -92,7 +113,6 @@ export default class Search extends Component {
     }
 
     render() {
-        console.log('serach : ', this.props);
         return (
             <View style={styles.listView}>
                 <View style={styles.searchView}>
@@ -121,3 +141,5 @@ export default class Search extends Component {
         )
     }
 }
+
+export default connect(({ mainReducer }) => ({ ...mainReducer }))(Search);

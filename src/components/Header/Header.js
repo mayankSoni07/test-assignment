@@ -9,10 +9,17 @@ import styles from './Header.styles';
  */
 export default class Header extends Component {
     render() {
+        console.log('header : ', this.props.locations)
         return (
             <View style={styles.searchView}>
                 <View style={styles.imgView}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('search', { locations: this.props.locations, navigation: this.props.navigation })} >
+                    <TouchableOpacity onPress={() => {
+                        this.props.markerClicked({});
+                        this.props.navigation.navigate('search', {
+                            locations: this.props.locations, navigation: this.props.navigation,
+                            dataToProps: this.props.dataToProps, markerClicked: this.props.markerClicked
+                        })
+                    }} >
                         <Image style={styles.imageSearch} source={require('../../assests/find.png')} />
                     </TouchableOpacity>
                 </View>

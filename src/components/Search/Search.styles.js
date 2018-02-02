@@ -37,11 +37,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 10
   },
-  closeImg:{
+  closeImg: {
     height: 25,
     width: 25
   },
-  cancelView:{
+  cancelView: {
     flex: 0.2,
     alignItems: 'center',
     justifyContent: 'center'
@@ -116,6 +116,15 @@ const styles = StyleSheet.create({
     height: 1,
     alignSelf: 'center',
     backgroundColor: colorCode
+  },
+  nameView: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  favImg: {
+    height: 25,
+    width: 25
   }
 });
 

@@ -1,20 +1,50 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 
 import styles from './LocationDetail.styles';
+import { favourite } from '../../Utils/AppUtils';
+
+let self;
+let marker = {};
 
 /**
  * @class
  * represents the Location Detail component
  */
-export default class LocationDetail extends Component {
+class LocationDetail extends Component {
+
+    componentWillMount() {
+        self = this;
+        marker = this.props.markerDetail;
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.locations){
+            nextProps.locations.map((val,index)=>{
+                if(val.name === marker.name){
+                    marker = val;
+                }
+            })
+        }
+    }
+
     render() {
-        console.log('location detail : ', this.props.markerDetail)
-        let marker = this.props.markerDetail;
         return (
             <ScrollView contentContainerStyle={styles.container}>
-                <Text style={styles.pageHeading}>{marker.name}</Text>
+                <View style={styles.nameView}>
+                    <Text style={styles.pageHeading}>{marker.name}</Text>
+                    <TouchableOpacity onPress={() => {
+                        favourite(self.props.locations, marker, self.props.dataToProps, true, self.props.markerClicked)
+                    }}>
+                        {marker.isFav ?
+                            <Image style={styles.img} source={require('../../assests/favYes.png')} />
+                            :
+                            <Image style={styles.img} source={require('../../assests/favNo.png')} />
+                        }
+                    </TouchableOpacity>
+                </View>
                 <Text style={styles.addressText}>ID : {marker.franchisee_id}</Text>
                 <Text style={styles.addressText}>Name : {marker.name}</Text>
                 <Text style={styles.addressText}>Address : {marker.address}</Text>
@@ -49,3 +79,5 @@ export default class LocationDetail extends Component {
         )
     }
 }
+
+export default connect(({ mainReducer }) => ({ ...mainReducer }))(LocationDetail);

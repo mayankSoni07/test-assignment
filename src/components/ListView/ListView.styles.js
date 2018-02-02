@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
     fontWeight: "300",
     color: colorCode,
   },
-  adressView:{
+  adressView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  arrowImg:{
+  arrowImg: {
     height: 15,
     width: 15
   },
@@ -76,6 +76,15 @@ const styles = StyleSheet.create({
     height: 1,
     alignSelf: 'center',
     backgroundColor: colorCode
+  },
+  nameView: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  favImg: {
+    height: 25,
+    width: 25
   }
 });
 
