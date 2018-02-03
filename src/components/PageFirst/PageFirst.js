@@ -26,6 +26,7 @@ class PageFirst extends Component {
     componentWillMount() {
         self = this;
         this.setState({ markerDetail: {} });
+
         /**
          * Check if data is in AsyncStorage or not,
          * if Yes, then pass data to props.
@@ -33,7 +34,7 @@ class PageFirst extends Component {
          */
         AsyncStorage.getItem('locations').then(JSON.parse)
             .then((data) => {
-                if (data.length) {
+                if (data && data.length !== 0) {
                     this.props.dataToProps(data);
                 } else {
                     /**
