@@ -22,7 +22,6 @@ export const distance = (lat1, lon1, lat2, lon2, unit) => {
 }
 
 export const favourite = (locations, marker, dataToProps, isDetail, markerClicked) => {
-    console.log("favourite : ", locations, marker);
     let temp = [];
     let obj = {};
     locations.map((val, index) => {
@@ -35,8 +34,8 @@ export const favourite = (locations, marker, dataToProps, isDetail, markerClicke
         }
     });
     dataToProps(temp);
-    AsyncStorage.setItem('locations', temp);
-    if(isDetail){
+    AsyncStorage.setItem('locations', JSON.stringify(temp));
+    if (isDetail) {
         markerClicked(obj);
     }
 }

@@ -24,9 +24,8 @@ export default class ListViewClass extends Component {
         this.props.markerClicked({});
         navigator.geolocation.getCurrentPosition((position) => {
             this.setState({ current: position.coords });
-            console.log("Position : ", position);
         }, (error) => {
-            console.log(JSON.stringify(error));
+            console.log(error);
         });
     }
 

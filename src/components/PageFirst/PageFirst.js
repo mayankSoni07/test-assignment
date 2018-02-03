@@ -27,28 +27,37 @@ class PageFirst extends Component {
         self = this;
         this.setState({ markerDetail: {} });
         /**
-         * API call to get locations from server.
+         * Check if data is in AsyncStorage or not,
+         * if Yes, then pass data to props.
+         * if No, then get API data, pass to props and store in Async Storage.
          */
-        getData()
-            .then((result) => result.json())
-            .then((result) => {
-                if (result.length) {
-                    let temp = [];
-                    result.map((val, index) => {
-                        let obj = val;
-                        obj.isFav = false;
-                        temp.push(obj);
-                    });
-                    this.props.dataToProps(temp);
-                    AsyncStorage.setItem('locations', temp);
+        AsyncStorage.getItem('locations').then(JSON.parse)
+            .then((data) => {
+                if (data.length) {
+                    this.props.dataToProps(data);
+                } else {
+                    /**
+                     * API call to get locations from server.
+                     */
+                    getData()
+                        .then((result) => result.json())
+                        .then((result) => {
+                            if (result.length) {
+                                let temp = [];
+                                result.map((val, index) => {
+                                    let obj = val;
+                                    obj.isFav = false;
+                                    temp.push(obj);
+                                });
+                                this.props.dataToProps(temp);
+                                AsyncStorage.setItem('locations', JSON.stringify(temp));
+                            }
+
+                        })
+                        .catch((err) => console.log(err))
                 }
-
             })
-            .catch((err) => console.log(err))
-    }
-
-    componentWillReceiveProps(nextProps){
-        console.log('rec prps', nextProps.locations);
+            .catch(err => console.log(err))
     }
 
     /**
@@ -69,7 +78,7 @@ class PageFirst extends Component {
                                 <Image style={styles.upImg} source={require('../../assests/favNo.png')} />
                             }
                         </TouchableOpacity>
-                        
+
                         <TouchableOpacity onPress={() => self.props.navigation.navigate('locationDetail', {
                             dataToProps: self.props.dataToProps, markerDetail: marker, markerClicked: self.markerClicked, locations: self.props.locations
                         })} >
@@ -122,6 +131,7 @@ class PageFirst extends Component {
                 <Header dataToProps={this.props.dataToProps} navigation={this.props.navigation} locations={this.props.locations} changeView={this.props.changeView} isListView={this.props.isListView} markerClicked={this.markerClicked} />
 
                 {Object.keys(this.state.markerDetail).length > 0 && this.renderMarkerDetail()}
+
             </View>
         );
     }

@@ -31,7 +31,7 @@ class Search extends Component {
         navigator.geolocation.getCurrentPosition((position) => {
             this.setState({ current: position.coords, locations: this.props.locations });
         }, (error) => {
-            console.log(JSON.stringify(error));
+            console.log(error);
         });
     }
 

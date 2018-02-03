@@ -9,7 +9,6 @@ import styles from './Header.styles';
  */
 export default class Header extends Component {
     render() {
-        console.log('header : ', this.props.locations)
         return (
             <View style={styles.searchView}>
                 <View style={styles.imgView}>

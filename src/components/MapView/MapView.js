@@ -35,7 +35,7 @@ export default class MapViewClass extends Component {
                 }
             });
         }, (error) => {
-            console.log(JSON.stringify(error));
+            console.log(error);
         });
     }
 
